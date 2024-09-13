@@ -1,7 +1,7 @@
 <?php
 require("db.php");
 
-print_r($_GET);
+//print_r($_GET);
 
 function allTasksByUser($link, $user_id) {
     $result = mysqli_query($link, "SELECT e.*, c.name category_name FROM `tasks` e INNER JOIN category c on c.id = e.category_id WHERE user_id = '$user_id' ORDER BY date DESC");
@@ -24,7 +24,8 @@ $r = $_SESSION["user"]
 <html>
 <head>
   <title>Журнал задач</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
   <div style="position:absolute; right:10px;top:10px;">
@@ -44,10 +45,19 @@ $r = $_SESSION["user"]
     ?>
   </div>
   <h1>задачи</h1>
+<?
+    if (isset($_SESSION["user"]) )
+  {
+    echo "<a href=add.php>Добавить новую задачу</a><br>";
+    echo "<a href=cxls.php>экспорт данных </a><br>";
+
+    }
+
+    ?>
 
 
-  <a href="add.php">Добавить новую задачу</a>
-  <a href="xls.php">экспорт данных</a>
+  <!-- <a href="add.php">Добавить новую задачу</a> -->
+  <!-- <a href="xls.php">экспорт данных</a> -->
   <?
 $tasks = allTasksByUser($link, $_SESSION['user']['id']);
 
